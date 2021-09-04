@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col">
                 <form>
-                    <div class="form-group">
+                    <div class="form-group" id="searchWrapper">
                         <input type="text" class="form-control" placeholder="Search an ingredient, device, utensil or a recipe">
                     </div>
                     <i class="fas fa-search search-icon"></i>
@@ -33,37 +33,247 @@
         </div>
 
         <div class="row">
-            <div class="col-2">
-                <div class="dropdown bg-primary rounded">
+            <div class="col">
+                
+                <div class="select-box">
+                    <div class="options-container">
+                       
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="lemonJuice" 
+                            name="category">
+                            <label for="lemonJuice">Lemon Juice</label>
+                        </div>
+
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="iceCube" 
+                            name="category">
+                            <label for="iceCube">Ice Cube</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="tomato" 
+                            name="category">
+                            <label for="tomato">Tomato</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="chicken" 
+                            name="category">
+                            <label for="chicken">Chicken</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="redPepper" 
+                            name="category">
+                            <label for="redPepper">Red Pepper</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="tuna" 
+                            name="category">
+                            <label for="tuna">Tuna</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="vinaigrette" 
+                            name="category">
+                            <label for="vinaigrette">Vinaigrette</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="cheese" 
+                            name="category">
+                            <label for="cheese">Cheese</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="egg" 
+                            name="category">
+                            <label for="egg">Egg</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="liquidCream" 
+                            name="category">
+                            <label for="liquidCream">Liquid Cream</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="coconutMilk" 
+                            name="category">
+                            <label for="coconutMilk">Coconut Milk</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="redTuna" 
+                            name="category">
+                            <label for="redTuna">Red Tuna</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="carot" 
+                            name="category">
+                            <label for="carot">Carot</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="tomatoSauce" 
+                            name="category">
+                            <label for="tomatoSauce">Tomato Sauce</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="oliveOil" 
+                            name="category">
+                            <label for="oliveOil">Olive Oil</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="hardBoiledEgg" 
+                            name="category">
+                            <label for="hardBoiledEgg">Hard-boiled Egg</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="puffPastry" 
+                            name="category">
+                            <label for="puffPastry">Puff Pastry</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="dijonMustard" 
+                            name="category">
+                            <label for="dijonMustard">Dijon Mustard</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="sugarCubes" 
+                            name="category">
+                            <label for="sugarCubes">Sugar Cubes</label>
+                        </div>
+    
+                        <div class="option">
+                            <input 
+                            type="radio" 
+                            class="radio" 
+                            id="butter" 
+                            name="category">
+                            <label for="butter">Butter</label>
+                        </div>
+                    </div>  
+                    <div class="selected">
+                        Select Category
+                    </div>   
+
+                    <div class="search-box">
+                        <input type="text" placeholder="Start Typing...">
+                    </div>
+                </div>
+
+                
+                
+                <!-- <div class="dropdown bg-primary rounded">
                     <input type="text" class="search-by-tag form-control dropdown-toggle bg-primary border-0 p-4" placeholder="Ingredients" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div class="col-4">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">One </a>
+                            <a class="dropdown-item" href="#">Two </a>
+                            <a class="dropdown-item" href="#">Three </a>
                         </div>
                         <div class="col-4">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Four </a>
+                            <a class="dropdown-item" href="#">Five </a>
+                            <a class="dropdown-item" href="#">Six </a>
                         </div>
                         <div class="col-4">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Seven </a>
+                            <a class="dropdown-item" href="#">Eight </a>
+                            <a class="dropdown-item" href="#">NINE</a>
                         </div>
                         
+                    </div>
+                  </div> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                   </div>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col">
-                <div class="search-result">
+            <div class="col-12">
+                <div class="search-result row" id="recipesList">
                 <!-- <div class="card-deck search-result"> -->
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-img-bg"></div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -89,9 +299,9 @@
                                 </small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-img-bg"></div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -116,9 +326,9 @@
                                 </small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-img-bg"></div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -143,7 +353,7 @@
                                 </small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -157,5 +367,7 @@
 
     <script src="./js/recipes.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/linearSearchAlgotrithm.js"></script>
+    <script src="./js/binarySearchAlgorithm.js"></script>
 </body>
 </html>
