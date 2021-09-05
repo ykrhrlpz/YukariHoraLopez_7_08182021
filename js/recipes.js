@@ -740,7 +740,7 @@ const recipes = [
         ],
         "time": 30,
         "description":"Cook the minced meat in a frying pan. In another, cook the onions, chopped into thin cubes, with a bit of butter. Add some red wine. Mix the onions with the minced meat. Cook the pasta for the time shown on the packet. Add the tomato coulis to the minced meat. Once the pasta is cooked, add the crème fraîche to the minced meat. Serve.",
-        "appliance": "Pan.",
+        "appliance": "Pan",
         "ustensils":["Cuillère en bois", "louche", "couteau"]
     },
     {

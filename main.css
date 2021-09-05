@@ -198,3 +198,17 @@ form .search-icon
     opacity: 1;
     pointer-events: auto;
 }
+
+
+/* Bootstrap dropbox */
+.dropdown-menu.show
+{
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 800px;
+}
+
+.dropdown-item
+{
+    color: white;
+}

@@ -132,9 +132,10 @@ function filterList(searchTerm)
 // console.log(dropdown);
 
 // create an array of Ingredients
+let ingredientsGroup = []
 function createIngredientsArray()
 {
-    let ingredientsGroup = []
+   
 
     // for each loop to get array of ingredient
     recipes.forEach(recipe => 
@@ -149,9 +150,10 @@ function createIngredientsArray()
 createIngredientsArray()
 
 // create an array of Devices
+let devicesGroup = []
 function createDevicesArray()
 {
-    let devicesGroup = []
+
 
     recipes.forEach(recipe => 
     {
@@ -167,9 +169,10 @@ function createDevicesArray()
 createDevicesArray()
 
 // create an array of Utensils
+let utensilsGroup = []
 function createUtensilsArray()
 {
-    let utensilsGroup = []
+    
 
      recipes.forEach(recipe => 
         recipe.ustensils.forEach(item => 
@@ -181,3 +184,51 @@ function createUtensilsArray()
 }
 
 createUtensilsArray()
+
+
+function generateDropboxItems(arr) 
+{
+	return arr.map(item => 
+        `
+        <div class="dropdown-item col-4">
+            ${item.charAt(0).toUpperCase() + item.slice(1)}
+        </div>
+        `)
+        .join('')
+}
+
+function displayIngredientsDropdown()
+{
+    document.getElementById('dropdown-menu-ingredients').innerHTML = 
+    `
+
+        ${generateDropboxItems(ingredientsGroup)}
+
+    `
+}
+
+displayIngredientsDropdown()
+
+function displayDevicesDropdown()
+{
+    document.getElementById('dropdown-menu-devices').innerHTML = 
+    `
+
+        ${generateDropboxItems(devicesGroup)}
+
+    `
+}
+
+displayDevicesDropdown()
+
+function displayUtensilsDropdown()
+{
+    document.getElementById('dropdown-menu-utensils').innerHTML = 
+    `
+
+        ${generateDropboxItems(utensilsGroup)}
+
+    `
+}
+
+displayUtensilsDropdown()
