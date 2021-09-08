@@ -199,6 +199,17 @@ form .search-icon
     pointer-events: auto;
 }
 
+/* Chips */
+
+.ingredients-chip 
+{
+    color: #fff;
+    background-color: #3282F7;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: max-content;
+}
+
 
 /* Bootstrap dropdown */
 .dropdown-menu.show

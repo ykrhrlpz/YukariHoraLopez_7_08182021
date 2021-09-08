@@ -245,7 +245,7 @@ const suggBox = searchWrapper.querySelector(".autocom-box")
 
 inputBox.onkeyup = (e) =>
 {
-    let userData = e.target.value //user entered data
+    let userData = e.target.value.toLowerCase() //user entered data
     let IngredientsArray = []
     if (userData)
     {
@@ -254,11 +254,12 @@ inputBox.onkeyup = (e) =>
             return data.startsWith(userData)
             // filtering array value and user char to lowercase and return only those word/sentc which are starts with user entered word
             // return data.toLocaleLowerCase().startsWidth(userData.toLocaleLowerCase())
-       
+
         })
         IngredientsArray = IngredientsArray.map((data) =>
         {
-            return data = '<li>' + data + '</li>'
+            // return data = '<li>' + data + '</li>'
+            return data = '<li>' + data.charAt(0).toUpperCase() + data.slice(1) + '</li>'
         })
         // console.log(IngredientsArray);
         searchWrapper.classList.add("active") // show autocomplete box
