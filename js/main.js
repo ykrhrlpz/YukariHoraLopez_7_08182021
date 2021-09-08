@@ -16,7 +16,6 @@ searchBar.addEventListener('keyup', (e) => {
         recipe.description && recipe.description.toLowerCase().includes(searchString)  
     ))
     displayRecipes(filteredRecipes)
-    console.log(filteredRecipes)
 })
 
 function generatIngredients(ingredients) 
@@ -190,9 +189,9 @@ function generateDropboxItems(arr)
 {
 	return arr.map(item => 
         `
-        <div class="dropdown-item col-4">
+        <li class="dropdown-item col-4">
             ${item.charAt(0).toUpperCase() + item.slice(1)}
-        </div>
+        </li>
         `)
         .join('')
 }
@@ -232,3 +231,74 @@ function displayUtensilsDropdown()
 }
 
 displayUtensilsDropdown()
+
+
+
+/* Dropdown with search bar */
+
+//getting all required elements
+const searchWrapper = document.querySelector(".search-input")
+const inputBox = searchWrapper.querySelector("input")
+const suggBox = searchWrapper.querySelector(".autocom-box")
+
+//if user press any key and release
+
+inputBox.onkeyup = (e) =>
+{
+    let userData = e.target.value //user entered data
+    let IngredientsArray = []
+    if (userData)
+    {
+        IngredientsArray = ingredientsGroup.filter((data) => 
+        {
+            return data.startsWith(userData)
+            // filtering array value and user char to lowercase and return only those word/sentc which are starts with user entered word
+            // return data.toLocaleLowerCase().startsWidth(userData.toLocaleLowerCase())
+       
+        })
+        IngredientsArray = IngredientsArray.map((data) =>
+        {
+            return data = '<li>' + data + '</li>'
+        })
+        // console.log(IngredientsArray);
+        searchWrapper.classList.add("active") // show autocomplete box
+        showSuggestions(IngredientsArray)
+        let allList = suggBox.querySelectorAll("li")
+        for (let i = 0; i < allList.length; i++)
+        {
+            // adding onclick attribute in all li tag
+            allList[i].setAttribute("onclick", "select(this)")
+            allList[i].classList.add("col-4")
+        }
+    }
+    else
+    {
+        searchWrapper.classList.remove("active") // hide autocomplete box
+        document.getElementById("search-input-ingredients").placeholder = "Search an ingredient";
+    }
+}
+
+function select(element)
+{
+    let selectUserData = element.textContent
+    inputBox.value = selectUserData // passing the user selected list item data in textfiled
+}
+
+function showSuggestions(list)
+{
+    let listData;
+    if (!list.length)
+    {
+        // show the value user entered under inpur field when they start typing
+        userValue = inputBox.value
+        listData = '<li>' + userValue + '</li>'
+    }
+    else
+    {
+        listData = list.join('')
+    }
+    suggBox.innerHTML = listData;
+}
+
+// inputBox.onclick = (e) =>
+// {

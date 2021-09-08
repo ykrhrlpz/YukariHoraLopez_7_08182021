@@ -200,7 +200,7 @@ form .search-icon
 }
 
 
-/* Bootstrap dropbox */
+/* Bootstrap dropdown */
 .dropdown-menu.show
 {
     display: flex;
@@ -211,4 +211,117 @@ form .search-icon
 .dropdown-item
 {
     color: white;
+}
+
+/* Dropdown with search bar */
+
+.wrapper
+{
+    max-width: 300px;
+    /* margin: 150px auto; */
+    margin-top: 30px;
+}
+
+.wrapper .search-input
+{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, .12);
+}
+
+.search-input input
+{
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
+    background-color: #3282F7;
+    color: #fff;
+}
+
+.search-input input::placeholder
+{
+    color: rgba(255, 255, 255, .5);
+}
+
+/* .search-input.active #search-input-ingredients
+{
+    color: rgba(255, 255, 255, .5);
+} */
+
+.search-input .icon 
+{
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.search-input .autocom-box
+{
+    padding: 0;
+    /* max-height: 280px; */
+    max-height: 900px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box
+{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+
+    background-color: #3282F7;
+    width: 800px;
+    max-height: 400px;
+}
+
+.search-input.active 
+{
+    background-color: #3282F7;
+    color: #fff;
+    width: 800px;
+}
+
+.autocom-box li
+{
+    list-style: none;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box li
+{
+    display: block;
+}
+
+.autocom-box li:hover 
+{
+    background: #efefef;
+}
+
+.search-input .icon
+{
+    transition: all .6s;
+}
+.search-input.active .icon
+{
+    transform: rotateX(180deg);
 }
