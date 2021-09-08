@@ -301,5 +301,17 @@ function showSuggestions(list)
     suggBox.innerHTML = listData;
 }
 
-// inputBox.onclick = (e) =>
-// {
+
+// Function to delete chips
+let chipBg = document.querySelector(".bground");
+let closeButton = document.querySelector(".close-button");
+
+const closeChip = () =>
+{
+    chipBg.style.display = "none";
+}
+
+closeButton.addEventListener("click", () => 
+{
+    closeChip();
+});
