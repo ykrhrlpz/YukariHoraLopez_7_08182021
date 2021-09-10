@@ -236,82 +236,108 @@ displayUtensilsDropdown()
 
 /* Dropdown with search bar */
 
+// Global variables
+let currentlySelectedIngredients = []
+let IngredientsArray = []
+let userData
+
 //getting all required elements
 const searchWrapper = document.querySelector(".search-input")
 const inputBox = searchWrapper.querySelector("input")
 const suggBox = searchWrapper.querySelector(".autocom-box")
 
 //if user press any key and release
-
 inputBox.onkeyup = (e) =>
 {
-    let userData = e.target.value.toLowerCase() //user entered data
-    let IngredientsArray = []
+    userData = e.target.value.toLowerCase() // user entered data, we turn it to lower case
+
     if (userData)
     {
-        IngredientsArray = ingredientsGroup.filter((data) => 
-        {
-            return data.startsWith(userData)
-            // filtering array value and user char to lowercase and return only those word/sentc which are starts with user entered word
-            // return data.toLocaleLowerCase().startsWidth(userData.toLocaleLowerCase())
-
-        })
-        IngredientsArray = IngredientsArray.map((data) =>
-        {
-            // return data = '<li>' + data + '</li>'
-            return data = '<li>' + data.charAt(0).toUpperCase() + data.slice(1) + '</li>'
-        })
-        // console.log(IngredientsArray);
         searchWrapper.classList.add("active") // show autocomplete box
-        showSuggestions(IngredientsArray)
-        let allList = suggBox.querySelectorAll("li")
-        for (let i = 0; i < allList.length; i++)
-        {
-            // adding onclick attribute in all li tag
-            allList[i].setAttribute("onclick", "select(this)")
-            allList[i].classList.add("col-4")
-        }
+
     }
     else
     {
         searchWrapper.classList.remove("active") // hide autocomplete box
         document.getElementById("search-input-ingredients").placeholder = "Search an ingredient";
     }
+
+    showSuggestions()
 }
 
-function select(element)
-{
-    let selectUserData = element.textContent
-    inputBox.value = selectUserData // passing the user selected list item data in textfiled
-}
 
-function showSuggestions(list)
+inputBox.onfocus = (e) =>
 {
-    let listData;
-    if (!list.length)
+    searchWrapper.classList.add("active") // show autocomplete box
+    showSuggestions()
+    document.onclick = (e) => 
     {
-        // show the value user entered under inpur field when they start typing
-        userValue = inputBox.value
-        listData = '<li>' + userValue + '</li>'
-    }
-    else
-    {
-        listData = list.join('')
-    }
-    suggBox.innerHTML = listData;
+        if( e.target.id == "ingredient") null
+        else if (e.target.id == "search-input-ingredients") null
+        else 
+        {
+            searchWrapper.classList.remove("active")
+            // Remove onclick event from document
+            document.onclick = null
+        }
+    } 
 }
 
+//  Updates ingredients suggestion and excludes anything already present in the chips.
+const updateIngredientSuggestions = () => IngredientsArray = userData 
+? 
+    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userData))
+: 
+    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)) 
 
-// Function to delete chips
-let chipBg = document.querySelector(".bground");
-let closeButton = document.querySelector(".close-button");
-
-const closeChip = () =>
+// Displays the list of suggestions LI elements.
+function showSuggestions()
 {
-    chipBg.style.display = "none";
+    updateIngredientSuggestions()
+    userData 
+    ?
+        suggBox.innerHTML = !IngredientsArray.length 
+        ? 
+            '<li>' + inputBox.value + '</li>' 
+        : 
+            IngredientsArray.map(data =>
+            `
+                <li id="ingredient" class="col-4" onclick="launchChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+            `
+            ).join('')
+    :
+    suggBox.innerHTML = IngredientsArray.map(data =>
+    `
+        <li id="ingredient" class="col-4" onclick="launchChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+    `
+    ).join('')
 }
 
-closeButton.addEventListener("click", () => 
+// Renders the chip section by looping over the list of currentlySelectedIngredients.
+const renderChips = () =>
 {
-    closeChip();
-});
+    document.getElementById("selectedIngredients").innerHTML = 
+    currentlySelectedIngredients.map(ing => 
+    `
+    <div class="chip ingredients-chip d-flex align-items-center mx-1 mb-2">
+        <p class="mb-0 mr-3" id="ingredient-item">${ing}</p>
+        <i class="far fa-times-circle fa-lg close-button" onclick="closeChip('${ing}')"></i>
+    </div>
+    `).join("")
+}
+
+// Adds an ingredient to the list of currentlySelectedIngredients.
+const launchChip = (elem) =>
+{
+    currentlySelectedIngredients.push(elem)
+    renderChips()
+    showSuggestions()
+}
+
+// Removes an ingredient from the list of currentlySelectedIngredients.
+const closeChip = (element) =>
+{
+    currentlySelectedIngredients = currentlySelectedIngredients.filter(elem => elem != element)
+    renderChips()
+    showSuggestions()
+}
