@@ -3,44 +3,44 @@
 // Global variables
 let currentlySelectedIngredients = []
 let IngredientsArray = []
-let userData
+let userIngredientsData
 
 //getting all required elements
-const searchWrapper = document.querySelector(".search-input")
-const inputBox = searchWrapper.querySelector("input")
-const suggBox = searchWrapper.querySelector(".autocom-box")
+const ingredientSearchWrapper = document.getElementById("ingredients-search-input")
+const ingredientInputBox = ingredientSearchWrapper.querySelector("input")
+const ingredientSuggBox = ingredientSearchWrapper.querySelector(".autocom-box")
 
 //if user press any key and release
-inputBox.onkeyup = (e) =>
+ingredientInputBox.onkeyup = (e) =>
 {
-    userData = e.target.value.toLowerCase() // user entered data, we turn it to lower case
+    userIngredientsData = e.target.value.toLowerCase() // user entered data, we turn it to lower case
 
-    if (userData)
+    if (userIngredientsData)
     {
-        searchWrapper.classList.add("active") // show autocomplete box
+        ingredientSearchWrapper.classList.add("active") // show autocomplete box
 
     }
     else
     {
-        searchWrapper.classList.remove("active") // hide autocomplete box
+        ingredientSearchWrapper.classList.remove("active") // hide autocomplete box
         document.getElementById("search-input-ingredients").placeholder = "Search an ingredient";
     }
 
-    showSuggestions()
+    showIngrdientsSuggestions()
 }
 
 
-inputBox.onfocus = (e) =>
+ingredientInputBox.onfocus = (e) =>
 {
-    searchWrapper.classList.add("active") // show autocomplete box
-    showSuggestions()
+    ingredientSearchWrapper.classList.add("active") // show autocomplete box
+    showIngrdientsSuggestions()
     document.onclick = (e) => 
     {
         if( e.target.id == "ingredient") null
         else if (e.target.id == "search-input-ingredients") null
         else 
         {
-            searchWrapper.classList.remove("active")
+            ingredientSearchWrapper.classList.remove("active")
             // Remove onclick event from document
             document.onclick = null
         }
@@ -48,44 +48,44 @@ inputBox.onfocus = (e) =>
 }
 
 //  Updates ingredients suggestion and excludes anything already present in the chips.
-const updateIngredientSuggestions = () => IngredientsArray = userData 
+const updateIngredientSuggestions = () => IngredientsArray = userIngredientsData 
 ? 
-    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userData))
+    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userIngredientsData))
 : 
     ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)) 
 
 // Displays the list of suggestions LI elements.
-function showSuggestions()
+function showIngrdientsSuggestions()
 {
     updateIngredientSuggestions()
-    userData 
+    userIngredientsData 
     ?
-        suggBox.innerHTML = !IngredientsArray.length 
+        ingredientSuggBox.innerHTML = !IngredientsArray.length 
         ? 
-            '<li>' + inputBox.value + '</li>' 
+            '<li>' + ingredientInputBox.value + '</li>' 
         : 
             IngredientsArray.map(data =>
             `
-                <li id="ingredient" class="col-4" onclick="launchChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+                <li id="ingredient" class="col-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
     :
-    suggBox.innerHTML = IngredientsArray.map(data =>
+    ingredientSuggBox.innerHTML = IngredientsArray.map(data =>
     `
-        <li id="ingredient" class="col-4" onclick="launchChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        <li id="ingredient" class="col-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
     `
     ).join('')
 }
 
 // Renders the chip section by looping over the list of currentlySelectedIngredients.
-const renderChips = () =>
+const renderIngredientsChips = () =>
 {
     document.getElementById("selectedIngredients").innerHTML = 
     currentlySelectedIngredients.map(ing => 
     `
     <div class="chip ingredients-chip d-flex align-items-center mx-1 mb-2">
         <p class="mb-0 mr-3" id="ingredient-item">${ing}</p>
-        <i class="far fa-times-circle fa-lg close-button" onclick="closeChip('${ing}')"></i>
+        <i class="far fa-times-circle fa-lg close-button" onclick="closeIngredientChip('${ing}')"></i>
     </div>
     `).join("")
 }
@@ -106,23 +106,23 @@ function ingredientFiltering()
 }
 
 // Adds an ingredient to the list of currentlySelectedIngredients.
-const launchChip = (elem) =>
+const launchIngredientChip = (elem) =>
 {
     currentlySelectedIngredients.push(elem)
-    renderChips()
-    showSuggestions()
+    renderIngredientsChips()
+    showIngrdientsSuggestions()
     currentlySelectedIngredients.length >= 1 ? displayRecipes(ingredientFiltering()) : displayRecipes(filteredRecipes)
     console.log(currentlySelectedIngredients);
 }
 
 // Removes an ingredient from the list of currentlySelectedIngredients.
-const closeChip = (element) =>
+const closeIngredientChip = (element) =>
 {
     currentlySelectedIngredients = currentlySelectedIngredients.filter(elem => elem != element)
-    renderChips()
+    renderIngredientsChips()
     ingredientFiltering()
     currentlySelectedIngredients.length >= 1 ? displayRecipes(ingredientFiltering()) : displayRecipes(filteredRecipes)
-    showSuggestions()
+    showIngrdientsSuggestions()
     console.log(currentlySelectedIngredients);
 }
 

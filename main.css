@@ -201,13 +201,27 @@ form .search-icon
 
 /* Chips */
 
-.ingredients-chip 
+.chip 
 {
     color: #fff;
-    background-color: #3282F7;
     border-radius: 5px;
     padding: 10px 20px;
     width: max-content;
+}
+
+.ingredients-chip 
+{
+    background-color: #3282F7;
+}
+
+.devices-chip 
+{
+    background-color: #68D9A4;
+}
+
+.ingredients-chip 
+{
+    background-color: #ED6454;
 }
 
 
@@ -252,13 +266,27 @@ form .search-icon
     padding: 0 60px 0 20px;
     font-size: 18px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
-    background-color: #3282F7;
     color: #fff;
 }
 
 .search-input input::placeholder
 {
     color: rgba(255, 255, 255, .5);
+}
+
+.ingredients-search-input input
+{
+    background-color: #3282F7;
+}
+
+.devices-search-input input
+{
+    background-color: #68D9A4;
+}
+
+.utensils-search-input input
+{
+    background-color: #ED6454;
 }
 
 /* .search-input.active #search-input-ingredients
@@ -296,9 +324,14 @@ form .search-icon
     opacity: 1;
     pointer-events: auto;
 
-    background-color: #3282F7;
+ 
     width: 800px;
     max-height: 400px;
+}
+
+.devices-search-input.active .autocom-box
+{
+    background-color: #68D9A4;
 }
 
 .search-input.active 
