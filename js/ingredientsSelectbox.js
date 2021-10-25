@@ -55,7 +55,6 @@ ingredientInputBox.onfocus = (e) =>
             ingredientInputBox.style.borderRadius="5px"
             ingredientInputBox.setAttribute("placeholder", "Ingredients")
            
-          
             // Remove onclick event from document
             document.onclick = null
         }
@@ -98,7 +97,7 @@ const renderIngredientsChips = () =>
     document.getElementById("selectedIngredients").innerHTML = 
     currentlySelectedIngredients.map(ing => 
     `
-    <div class="chip ingredients-chip d-flex align-items-center mx-1 mb-2">
+    <div class="chip ingredients-chip d-flex align-items-center mx-1 my-2">
         <p class="mb-0 mr-3" id="ingredient-item">${ing}</p>
         <i class="far fa-times-circle fa-lg close-button" onclick="closeIngredientChip('${ing}')"></i>
     </div>

@@ -99,9 +99,18 @@ function updateFilters(textValue)
     currentlySelectedIngredients.length >= 1 && ingredientFiltering()
     currentlySelectedDevices.length >= 1 && deviceFiltering()
 
-    filteredRecipes.length !== recipes.length 
-    ? 
-        displayRecipes(filteredRecipes)
+    filteredRecipes.length >= 1
+    ?
+        filteredRecipes.length !== recipes.length 
+        ? 
+            displayRecipes(filteredRecipes)
+        :
+            displayRecipes([])
     :
-        displayRecipes([])
+        displayNoRecipe()
+}
+
+function displayNoRecipe()
+{
+    recipesList.innerHTML = `<div class="my-5 w-100 text-center lead">No recipe matches your criteria... you can search for "apple pie", "fish" etc....</div>`
 }

@@ -96,7 +96,7 @@ const renderUtensilsChips = () =>
     document.getElementById("selectedUtensils").innerHTML = 
     currentlySelectedUtensils.map(utensil => 
     `
-    <div class="chip utensils-chip d-flex align-items-center mx-1 mb-2">
+    <div class="chip utensils-chip d-flex align-items-center mx-1 my-2">
         <p class="mb-0 mr-3" id="utensil-item">${utensil}</p>
         <i class="far fa-times-circle fa-lg close-button" onclick="closeUtensilChip('${utensil}')"></i>
     </div>

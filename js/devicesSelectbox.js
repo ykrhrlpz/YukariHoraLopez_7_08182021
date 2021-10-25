@@ -94,7 +94,7 @@ const renderDevicesChips = () =>
     document.getElementById("selectedDevices").innerHTML = 
     currentlySelectedDevices.map(device => 
     `
-    <div class="chip devices-chip d-flex align-items-center mx-1 mb-2">
+    <div class="chip devices-chip d-flex align-items-center mx-1 my-2">
         <p class="mb-0 mr-3" id="device-item">${device}</p>
         <i class="far fa-times-circle fa-lg close-button" onclick="closeDeviceChip('${device}')"></i>
     </div>
