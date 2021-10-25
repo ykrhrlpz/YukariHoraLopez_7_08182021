@@ -10,6 +10,7 @@ const ingredientSearchWrapper = document.getElementById("ingredients-search-inpu
 const ingredientInputBox = ingredientSearchWrapper.querySelector("input")
 const ingredientSuggBox = ingredientSearchWrapper.querySelector(".autocom-box")
 
+
 //if user press any key and release
 ingredientInputBox.onkeyup = (e) =>
 {
@@ -18,7 +19,8 @@ ingredientInputBox.onkeyup = (e) =>
     if (userIngredientsData)
     {
         ingredientSearchWrapper.classList.add("active") // show autocomplete box
-
+  
+ 
     }
     else
     {
@@ -33,14 +35,18 @@ ingredientInputBox.onkeyup = (e) =>
 ingredientInputBox.onfocus = (e) =>
 {
     ingredientSearchWrapper.classList.add("active") // show autocomplete box
+    ingredientInputBox.style.borderRadius="5px 5px 0 0"
+    // ingredientSearchWrapper.classList.add("flex-grow-2") 
     showIngrdientsSuggestions()
     document.onclick = (e) => 
     {
+        
         if( e.target.id == "ingredient") null
         else if (e.target.id == "search-input-ingredients") null
         else 
         {
             ingredientSearchWrapper.classList.remove("active")
+            ingredientInputBox.style.borderRadius="5px"
             // Remove onclick event from document
             document.onclick = null
         }

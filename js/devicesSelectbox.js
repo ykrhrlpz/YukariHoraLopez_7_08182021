@@ -33,6 +33,8 @@ deviceInputBox.onkeyup = (e) =>
 deviceInputBox.onfocus = (e) =>
 {
     deviceSearchWrapper.classList.add("active") // show autocomplete box
+    deviceInputBox.style.borderRadius="5px 5px 0 0"
+    deviceInputBox.style.boxShadow="none"
     showDevicesSuggestions()
     document.onclick = (e) => 
     {
@@ -41,6 +43,7 @@ deviceInputBox.onfocus = (e) =>
         else 
         {
             deviceSearchWrapper.classList.remove("active")
+            deviceInputBox.style.borderRadius="5px"
             // Remove onclick event from document
             document.onclick = null
         }
@@ -105,7 +108,7 @@ function deviceFiltering()
     return filteredResult
 }
 
-// Adds an ingredient to the list of currentlySelectedDevices.
+// Adds an device to the list of currentlySelectedDevices.
 const launchDeviceChip = (elem) =>
 {
     currentlySelectedDevices.push(elem)
@@ -115,7 +118,7 @@ const launchDeviceChip = (elem) =>
     console.log(currentlySelectedDevices);
 }
 
-// Removes an ingredient from the list of currentlySelectedDevices.
+// Removes an device from the list of currentlySelectedDevices.
 const closeDeviceChip = (element) =>
 {
     currentlySelectedDevices = currentlySelectedDevices.filter(elem => elem != element)

@@ -219,7 +219,7 @@ form .search-icon
     background-color: #68D9A4;
 }
 
-.ingredients-chip 
+.utensils-chip 
 {
     background-color: #ED6454;
 }
@@ -316,6 +316,7 @@ form .search-icon
     overflow-y: auto;
     opacity: 0;
     pointer-events: none;
+    border-radius: 0 0 5px 5px;
 }
 
 .search-input.active .autocom-box
@@ -325,20 +326,28 @@ form .search-icon
     pointer-events: auto;
 
  
-    width: 800px;
+    width: 600px;
     max-height: 400px;
 }
-
+.ingredients-search-input.active .autocom-box
+{
+    background-color: #3282F7;
+}
 .devices-search-input.active .autocom-box
 {
     background-color: #68D9A4;
 }
+.utensils-search-input.active .autocom-box
+{
+    background-color: #ED6454;
+}
+
 
 .search-input.active 
 {
-    background-color: #3282F7;
+    /* background-color: #3282F7; */
     color: #fff;
-    width: 800px;
+    width: 600px;
 }
 
 .autocom-box li
