@@ -25,7 +25,6 @@ ingredientInputBox.onkeyup = (e) =>
     else
     {
         ingredientSearchWrapper.classList.remove("active") // hide autocomplete box
-        document.getElementById("search-input-ingredients").placeholder = "Search an ingredient";
     }
 
     showIngrdientsSuggestions()
@@ -34,8 +33,15 @@ ingredientInputBox.onkeyup = (e) =>
 
 ingredientInputBox.onfocus = (e) =>
 {
+    utensilSearchWrapper.classList.remove("active")
+    deviceSearchWrapper.classList.remove("active")
+
+    deviceInputBox.setAttribute("placeholder", "Ingredients")
+    utensilInputBox.setAttribute("placeholder", "Ingredients")
+
     ingredientSearchWrapper.classList.add("active") // show autocomplete box
     ingredientInputBox.style.borderRadius="5px 5px 0 0"
+    ingredientInputBox.setAttribute("placeholder", "search an ingredient")
     // ingredientSearchWrapper.classList.add("flex-grow-2") 
     showIngrdientsSuggestions()
     document.onclick = (e) => 
@@ -47,6 +53,9 @@ ingredientInputBox.onfocus = (e) =>
         {
             ingredientSearchWrapper.classList.remove("active")
             ingredientInputBox.style.borderRadius="5px"
+            ingredientInputBox.setAttribute("placeholder", "Ingredients")
+           
+          
             // Remove onclick event from document
             document.onclick = null
         }
@@ -99,16 +108,13 @@ const renderIngredientsChips = () =>
 
 function ingredientFiltering()
 {
-    let filteredResult = filteredRecipes
-
     currentlySelectedIngredients.forEach(ingredient => 
     {
-        filteredResult = filteredResult.filter((recipe) => 
+        filteredRecipes = filteredRecipes.filter((recipe) => 
         (
             recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).includes(ingredient.toLowerCase())
         ))
     })
-    return filteredResult
 }
 
 // Adds an ingredient to the list of currentlySelectedIngredients.
@@ -117,8 +123,7 @@ const launchIngredientChip = (elem) =>
     currentlySelectedIngredients.push(elem)
     renderIngredientsChips()
     showIngrdientsSuggestions()
-    currentlySelectedIngredients.length >= 1 ? displayRecipes(ingredientFiltering()) : displayRecipes(filteredRecipes)
-    console.log(currentlySelectedIngredients);
+    updateFilters(searchString)
 }
 
 // Removes an ingredient from the list of currentlySelectedIngredients.
@@ -127,8 +132,7 @@ const closeIngredientChip = (element) =>
     currentlySelectedIngredients = currentlySelectedIngredients.filter(elem => elem != element)
     renderIngredientsChips()
     ingredientFiltering()
-    currentlySelectedIngredients.length >= 1 ? displayRecipes(ingredientFiltering()) : displayRecipes(filteredRecipes)
     showIngrdientsSuggestions()
-    console.log(currentlySelectedIngredients);
+    updateFilters(searchString)
 }
 

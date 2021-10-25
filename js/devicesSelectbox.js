@@ -32,9 +32,16 @@ deviceInputBox.onkeyup = (e) =>
 
 deviceInputBox.onfocus = (e) =>
 {
+    ingredientSearchWrapper.classList.remove("active")
+    utensilSearchWrapper.classList.remove("active")
+
+    ingredientInputBox.setAttribute("placeholder", "Ingredients")
+    utensilInputBox.setAttribute("placeholder", "Ingredients")
+
     deviceSearchWrapper.classList.add("active") // show autocomplete box
     deviceInputBox.style.borderRadius="5px 5px 0 0"
     deviceInputBox.style.boxShadow="none"
+    deviceInputBox.setAttribute("placeholder", "search an ingredient")
     showDevicesSuggestions()
     document.onclick = (e) => 
     {
@@ -44,6 +51,7 @@ deviceInputBox.onfocus = (e) =>
         {
             deviceSearchWrapper.classList.remove("active")
             deviceInputBox.style.borderRadius="5px"
+            deviceInputBox.setAttribute("placeholder", "Devices")
             // Remove onclick event from document
             document.onclick = null
         }
@@ -96,16 +104,13 @@ const renderDevicesChips = () =>
 
 function deviceFiltering()
 {
-    let filteredResult = filteredRecipes
-
     currentlySelectedDevices.forEach(device => 
     {
-        filteredResult = filteredResult.filter((recipe) => 
+        filteredRecipes = filteredRecipes.filter((recipe) => 
         (
             recipe.appliance.toLowerCase() === device.toLowerCase()
         ))
     })
-    return filteredResult
 }
 
 // Adds an device to the list of currentlySelectedDevices.
@@ -114,8 +119,7 @@ const launchDeviceChip = (elem) =>
     currentlySelectedDevices.push(elem)
     renderDevicesChips()
     showDevicesSuggestions()
-    currentlySelectedDevices.length >= 1 ? displayRecipes(deviceFiltering()) : displayRecipes(filteredRecipes)
-    console.log(currentlySelectedDevices);
+    updateFilters(searchString)
 }
 
 // Removes an device from the list of currentlySelectedDevices.
@@ -124,8 +128,7 @@ const closeDeviceChip = (element) =>
     currentlySelectedDevices = currentlySelectedDevices.filter(elem => elem != element)
     renderDevicesChips()
     deviceFiltering()
-    currentlySelectedDevices.length >= 1 ? displayRecipes(deviceFiltering()) : displayRecipes(filteredRecipes)
     showDevicesSuggestions()
-    console.log(currentlySelectedDevices);
+    updateFilters(searchString)
 }
 

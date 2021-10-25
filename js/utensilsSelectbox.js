@@ -29,11 +29,21 @@ utensilInputBox.onkeyup = (e) =>
     showUtensilsSuggestions()
 }
 
+  
+
 
 utensilInputBox.onfocus = (e) =>
 {
+
+    ingredientSearchWrapper.classList.remove("active")
+    deviceSearchWrapper.classList.remove("active")
+
+    deviceInputBox.setAttribute("placeholder", "Ingredients")
+    ingredientInputBox.setAttribute("placeholder", "Ingredients")
+
     utensilSearchWrapper.classList.add("active") // show autocomplete box
     utensilInputBox.style.borderRadius="5px 5px 0 0"
+    utensilInputBox.setAttribute("placeholder", "search an ingredient")
     showUtensilsSuggestions()
     document.onclick = (e) => 
     {
@@ -43,6 +53,7 @@ utensilInputBox.onfocus = (e) =>
         {
             utensilSearchWrapper.classList.remove("active")
             utensilInputBox.style.borderRadius="5px"
+            utensilInputBox.setAttribute("placeholder", "Utensils")
             // Remove onclick event from document
             document.onclick = null
         }
@@ -92,22 +103,16 @@ const renderUtensilsChips = () =>
     `).join("")
 }
 
-
-
 function utensilFiltering()
 {
-    let filteredResult = filteredRecipes
-
     currentlySelectedUtensils.forEach(utensil => 
     {
-        filteredResult = filteredResult.filter((recipe) => 
+        filteredRecipes = filteredRecipes.filter((recipe) => 
         (
-         
             recipe.ustensils.map(uten => uten.toLowerCase()).includes(utensil.toLowerCase())
             // recipe.ustensils.toLowerCase() === utensil.toLowerCase()
         ))
     })
-    return filteredResult
 }
 
 // Adds an utensil to the list of currentlySelectedUtensils.
@@ -116,8 +121,7 @@ const launchUtensilChip = (elem) =>
     currentlySelectedUtensils.push(elem)
     renderUtensilsChips()
     showUtensilsSuggestions()
-    currentlySelectedUtensils.length >= 1 ? displayRecipes(utensilFiltering()) : displayRecipes(filteredRecipes)
-    console.log(currentlySelectedUtensils);
+    updateFilters(searchString)
 }
 
 // Removes an utensil from the list of currentlySelectedUtensils.
@@ -126,8 +130,7 @@ const closeUtensilChip = (element) =>
     currentlySelectedUtensils = currentlySelectedUtensils.filter(elem => elem != element)
     renderUtensilsChips()
     utensilFiltering()
-    currentlySelectedUtensils.length >= 1 ? displayRecipes(utensilFiltering()) : displayRecipes(filteredRecipes)
     showUtensilsSuggestions()
-    console.log(currentlySelectedUtensils);
+    updateFilters(searchString)
 }
 

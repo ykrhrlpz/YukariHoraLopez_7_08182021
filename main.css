@@ -132,6 +132,14 @@ form .search-icon
     margin-top: 54px;
 }
 
+.ingredients-search-input.active input::placeholder,
+.devices-search-input.active input::placeholder,
+.utensils-search-input.active input::placeholder
+{
+    transition: .3s;
+    color: rgba(255, 255, 255, .75);
+}
+
 .select-box .options-container.active + .selected::after
 {
     transform: rotateX(180deg);
@@ -242,8 +250,8 @@ form .search-icon
 
 .wrapper
 {
-    max-width: 250px;
-    /* margin: 150px auto; */
+    /* max-width: 250px; */
+    /* width: max-content; */
     margin-top: 30px;
 }
 
@@ -251,7 +259,7 @@ form .search-icon
 {
     position: relative;
     background: #fff;
-    width: 100%;
+    min-width: max-content;
     border-radius: 5px;
     box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, .12);
 }
@@ -271,7 +279,8 @@ form .search-icon
 
 .search-input input::placeholder
 {
-    color: rgba(255, 255, 255, .5);
+    color: #fff;
+    /* color: rgba(255, 255, 255, .5); */
 }
 
 .ingredients-search-input input

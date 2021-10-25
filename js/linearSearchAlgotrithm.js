@@ -3,6 +3,9 @@
 const recipesList = document.getElementById('recipesList')
 const searchBar = document.getElementById('searchWrapper')
 
+let filteredRecipes = []
+let searchString = ""
+
 
 function linearSearch(arr, elem)
 {
@@ -23,16 +26,12 @@ function linearSearch(arr, elem)
     return result
 }
 
-let filteredRecipes = recipes
-
-searchBar.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase()
-
+function searchBarFiltering(value)
+{
+    searchString = value.toLowerCase()
+    console.log(searchString);
   
-    // Filter recipe only when a user enters more than 3 letters in the search bar 
-    if (searchString.length > 2) 
-    {
-        filteredRecipes = recipes.filter(recipe => 
+        filteredRecipes = filteredRecipes.filter(recipe => 
         recipe.name 
         && 
             linearSearch(recipe.name.toLowerCase(), searchString)
@@ -45,17 +44,9 @@ searchBar.addEventListener('keyup', (e) => {
         recipe.description
         &&
             linearSearch(recipe.description.toLowerCase(), searchString)) 
-        displayRecipes(filteredRecipes)
-        console.log(filteredRecipes);
-    }  
+}
 
-    // to be removed after taking care of onblur event
-    else
-    {
-        filteredRecipes = recipes
-        displayRecipes(filteredRecipes)
-    }
-})
+searchBar.addEventListener('keyup', (e) => updateFilters(e.target.value))
 
 
 
@@ -98,11 +89,19 @@ function displayRecipes(recipes)
     recipesList.innerHTML = htmlString
 }
 
-function fetchData()
+function updateFilters(textValue)
 {
-    displayRecipes(recipes)
+
+    // Always update recipes to the initial values
+    filteredRecipes = recipes
+    textValue.length >= 3 ? searchBarFiltering(textValue) : searchString = ""
+    currentlySelectedUtensils.length >= 1 && utensilFiltering()
+    currentlySelectedIngredients.length >= 1 && ingredientFiltering()
+    currentlySelectedDevices.length >= 1 && deviceFiltering()
+
+    filteredRecipes.length !== recipes.length 
+    ? 
+        displayRecipes(filteredRecipes)
+    :
+        displayRecipes([])
 }
-
-
-// fetchData()
-
