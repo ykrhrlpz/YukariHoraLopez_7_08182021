@@ -3,25 +3,6 @@ const searchBar = document.getElementById('searchWrapper')
 let filteredRecipes = []
 let searchString = ""
 
-function linearSearch(arr, elem)
-{
-    let result = false
-    let elemLength = elem.length
-    let loopLength = arr.length - elemLength
-    if (loopLength < 0)
-    {
-        return false
-    }
-    for (let i = 0; i <= loopLength; i++)
-    {
-        if (arr.slice(i, i + elemLength) === elem)
-        { 
-            result = true
-        }
-    }
-    return result
-}
-
 function searchBarFiltering(value)
 {
     searchString = value.toLowerCase()
@@ -29,16 +10,16 @@ function searchBarFiltering(value)
         filteredRecipes = filteredRecipes.filter(recipe => 
         recipe.name 
         && 
-            linearSearch(recipe.name.toLowerCase(), searchString)
+            recipe.name.toLowerCase().includes(searchString)
         || 
         recipe.ingredients 
         &&
             // returning true if it finds ingredient, if not, return false
-            recipe.ingredients.filter(item => linearSearch(item.ingredient.toLowerCase(), searchString)).length > 0
+            recipe.ingredients.filter(item => item.ingredient.toLowerCase().includes(searchString)).length > 0
         ||
         recipe.description
         &&
-            linearSearch(recipe.description.toLowerCase(), searchString)) 
+            recipe.description.toLowerCase().includes(searchString)) 
 }
 
 searchBar.addEventListener('keyup', (e) => updateFilters(e.target.value))
