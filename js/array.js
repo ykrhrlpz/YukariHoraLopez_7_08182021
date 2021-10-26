@@ -1,10 +1,7 @@
-
 // create an array of Ingredients
 let ingredientsGroup = []
 function createIngredientsArray()
 {
-   
-
     // for each loop to get array of ingredient
     recipes.forEach(recipe => 
         recipe.ingredients.forEach(item => 
@@ -21,7 +18,6 @@ createIngredientsArray()
 let devicesGroup = []
 function createDevicesArray()
 {
-
 
     recipes.forEach(recipe => 
     {
@@ -40,8 +36,6 @@ createDevicesArray()
 let utensilsGroup = []
 function createUtensilsArray()
 {
-    
-
      recipes.forEach(recipe => 
         recipe.ustensils.forEach(item => 
             !utensilsGroup.includes(item.toLowerCase())
@@ -53,7 +47,6 @@ function createUtensilsArray()
 
 createUtensilsArray()
 
-
 function generateDropboxItems(arr) 
 {
 	return arr.map(item => 
@@ -64,40 +57,3 @@ function generateDropboxItems(arr)
         `)
         .join('')
 }
-
-// function displayIngredientsDropdown()
-// {
-//     document.getElementById('dropdown-menu-ingredients').innerHTML = 
-//     `
-
-//         ${generateDropboxItems(ingredientsGroup)}
-
-//     `
-// }
-
-// displayIngredientsDropdown()
-
-// function displayDevicesDropdown()
-// {
-//     document.getElementById('dropdown-menu-devices').innerHTML = 
-//     `
-
-//         ${generateDropboxItems(devicesGroup)}
-
-//     `
-// }
-
-// displayDevicesDropdown()
-
-// function displayUtensilsDropdown()
-// {
-//     document.getElementById('dropdown-menu-utensils').innerHTML = 
-//     `
-
-//         ${generateDropboxItems(utensilsGroup)}
-
-//     `
-// }
-
-// displayUtensilsDropdown()
-

@@ -1,5 +1,3 @@
-/* Dropdown with search bar */
-
 // Global variables
 let currentlySelectedUtensils = []
 let utensilsArray = []
@@ -25,25 +23,22 @@ utensilInputBox.onkeyup = (e) =>
         utensilSearchWrapper.classList.remove("active") // hide autocomplete box
         document.getElementById("search-input-utensils").placeholder = "Search an utensil";
     }
-
     showUtensilsSuggestions()
 }
 
-  
-
-
 utensilInputBox.onfocus = (e) =>
 {
-
     ingredientSearchWrapper.classList.remove("active")
     deviceSearchWrapper.classList.remove("active")
 
-    deviceInputBox.setAttribute("placeholder", "Ingredients")
+    deviceInputBox.setAttribute("placeholder", "Devices")
     ingredientInputBox.setAttribute("placeholder", "Ingredients")
+    ingredientInputBox.value = ""
+    deviceInputBox.value = ""
 
     utensilSearchWrapper.classList.add("active") // show autocomplete box
     utensilInputBox.style.borderRadius="5px 5px 0 0"
-    utensilInputBox.setAttribute("placeholder", "search an ingredient")
+    utensilInputBox.setAttribute("placeholder", "search an utensil")
     showUtensilsSuggestions()
     document.onclick = (e) => 
     {
@@ -54,13 +49,16 @@ utensilInputBox.onfocus = (e) =>
             utensilSearchWrapper.classList.remove("active")
             utensilInputBox.style.borderRadius="5px"
             utensilInputBox.setAttribute("placeholder", "Utensils")
+            utensilInputBox.value = ""
+            userUtensilsData = null
+            showDevicesSuggestions()
             // Remove onclick event from document
             document.onclick = null
         }
     } 
 }
 
-//  Updates ingredients suggestion and excludes anything already present in the chips.
+//  Updates Utensils suggestion and excludes anything already present in the chips.
 const updateUtensilSuggestions = () => utensilsArray = userUtensilsData 
 ? 
     utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)).filter((data) => data.startsWith(userUtensilsData))
@@ -79,13 +77,13 @@ function showUtensilsSuggestions()
         : 
             utensilsArray.map(data =>
             `
-                <li id="utensil" class="col-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+                <li id="utensil" class="col-xs-12 col-md-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
     :
     utensilSuggBox.innerHTML = utensilsArray.map(data =>
     `
-        <li id="utensil" class="col-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        <li id="utensil" class="col-xs-12 col-md-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
     `
     ).join('')
 }
@@ -110,7 +108,6 @@ function utensilFiltering()
         filteredRecipes = filteredRecipes.filter((recipe) => 
         (
             recipe.ustensils.map(uten => uten.toLowerCase()).includes(utensil.toLowerCase())
-            // recipe.ustensils.toLowerCase() === utensil.toLowerCase()
         ))
     })
 }
@@ -120,7 +117,9 @@ const launchUtensilChip = (elem) =>
 {
     currentlySelectedUtensils.push(elem)
     renderUtensilsChips()
+    userUtensilsData = null
     showUtensilsSuggestions()
+    utensilInputBox.value = ""
     updateFilters(searchString)
 }
 
