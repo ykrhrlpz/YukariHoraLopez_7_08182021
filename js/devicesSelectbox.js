@@ -1,5 +1,3 @@
-/* Dropdown with search bar */
-
 // Global variables
 let currentlySelectedDevices = []
 let devicesArray = []
@@ -18,14 +16,12 @@ deviceInputBox.onkeyup = (e) =>
     if (userDevicesData)
     {
         deviceSearchWrapper.classList.add("active") // show autocomplete box
-
     }
     else
     {
         deviceSearchWrapper.classList.remove("active") // hide autocomplete box
         document.getElementById("search-input-devices").placeholder = "Search an device";
     }
-
     showDevicesSuggestions()
 }
 
@@ -36,12 +32,14 @@ deviceInputBox.onfocus = (e) =>
     utensilSearchWrapper.classList.remove("active")
 
     ingredientInputBox.setAttribute("placeholder", "Ingredients")
-    utensilInputBox.setAttribute("placeholder", "Ingredients")
+    utensilInputBox.setAttribute("placeholder", "Utensils")
+    ingredientInputBox.value = ""
+    utensilInputBox.value = ""
 
     deviceSearchWrapper.classList.add("active") // show autocomplete box
     deviceInputBox.style.borderRadius="5px 5px 0 0"
     deviceInputBox.style.boxShadow="none"
-    deviceInputBox.setAttribute("placeholder", "search an ingredient")
+    deviceInputBox.setAttribute("placeholder", "search a device")
     showDevicesSuggestions()
     document.onclick = (e) => 
     {
@@ -52,13 +50,17 @@ deviceInputBox.onfocus = (e) =>
             deviceSearchWrapper.classList.remove("active")
             deviceInputBox.style.borderRadius="5px"
             deviceInputBox.setAttribute("placeholder", "Devices")
+            deviceInputBox.value = ""
+            userDevicesData = null
+            showDevicesSuggestions()
+       
             // Remove onclick event from document
             document.onclick = null
         }
     } 
 }
 
-//  Updates ingredients suggestion and excludes anything already present in the chips.
+//  Updates devices suggestion and excludes anything already present in the chips.
 const updateDeviceSuggestions = () => devicesArray = userDevicesData 
 ? 
     devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)).filter((data) => data.startsWith(userDevicesData))
@@ -77,13 +79,13 @@ function showDevicesSuggestions()
         : 
             devicesArray.map(data =>
             `
-                <li id="device" class="col-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+                <li id="device" class="col-xs-12 col-md-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
     :
     deviceSuggBox.innerHTML = devicesArray.map(data =>
     `
-        <li id="device" class="col-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        <li id="device" class="col-xs-12 col-md-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
     `
     ).join('')
 }
@@ -118,7 +120,9 @@ const launchDeviceChip = (elem) =>
 {
     currentlySelectedDevices.push(elem)
     renderDevicesChips()
+    userDevicesData = null
     showDevicesSuggestions()
+    deviceInputBox.value = ""
     updateFilters(searchString)
 }
 

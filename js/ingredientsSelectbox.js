@@ -1,5 +1,3 @@
-/* Dropdown with search bar */
-
 // Global variables
 let currentlySelectedIngredients = []
 let IngredientsArray = []
@@ -10,7 +8,6 @@ const ingredientSearchWrapper = document.getElementById("ingredients-search-inpu
 const ingredientInputBox = ingredientSearchWrapper.querySelector("input")
 const ingredientSuggBox = ingredientSearchWrapper.querySelector(".autocom-box")
 
-
 //if user press any key and release
 ingredientInputBox.onkeyup = (e) =>
 {
@@ -19,8 +16,6 @@ ingredientInputBox.onkeyup = (e) =>
     if (userIngredientsData)
     {
         ingredientSearchWrapper.classList.add("active") // show autocomplete box
-  
- 
     }
     else
     {
@@ -36,17 +31,17 @@ ingredientInputBox.onfocus = (e) =>
     utensilSearchWrapper.classList.remove("active")
     deviceSearchWrapper.classList.remove("active")
 
-    deviceInputBox.setAttribute("placeholder", "Ingredients")
-    utensilInputBox.setAttribute("placeholder", "Ingredients")
+    deviceInputBox.setAttribute("placeholder", "Devices")
+    utensilInputBox.setAttribute("placeholder", "Utensils")
+    deviceInputBox.value = ""
+    utensilInputBox.value = ""
 
     ingredientSearchWrapper.classList.add("active") // show autocomplete box
     ingredientInputBox.style.borderRadius="5px 5px 0 0"
     ingredientInputBox.setAttribute("placeholder", "search an ingredient")
-    // ingredientSearchWrapper.classList.add("flex-grow-2") 
     showIngrdientsSuggestions()
     document.onclick = (e) => 
     {
-        
         if( e.target.id == "ingredient") null
         else if (e.target.id == "search-input-ingredients") null
         else 
@@ -54,7 +49,9 @@ ingredientInputBox.onfocus = (e) =>
             ingredientSearchWrapper.classList.remove("active")
             ingredientInputBox.style.borderRadius="5px"
             ingredientInputBox.setAttribute("placeholder", "Ingredients")
-           
+            ingredientInputBox.value = ""
+            userIngredientsData = null
+            showIngrdientsSuggestions()
             // Remove onclick event from document
             document.onclick = null
         }
@@ -80,13 +77,13 @@ function showIngrdientsSuggestions()
         : 
             IngredientsArray.map(data =>
             `
-                <li id="ingredient" class="col-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+                <li id="ingredient" class="col-xs-12 col-md-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
     :
     ingredientSuggBox.innerHTML = IngredientsArray.map(data =>
     `
-        <li id="ingredient" class="col-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        <li id="ingredient" class="col-xs-12 col-md-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
     `
     ).join('')
 }
@@ -104,7 +101,6 @@ const renderIngredientsChips = () =>
     `).join("")
 }
 
-
 function ingredientFiltering()
 {
     currentlySelectedIngredients.forEach(ingredient => 
@@ -121,7 +117,9 @@ const launchIngredientChip = (elem) =>
 {
     currentlySelectedIngredients.push(elem)
     renderIngredientsChips()
+    userIngredientsData = null
     showIngrdientsSuggestions()
+    ingredientInputBox.value = ""
     updateFilters(searchString)
 }
 

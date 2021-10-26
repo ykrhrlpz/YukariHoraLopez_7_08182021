@@ -1,11 +1,7 @@
-
-// let list = ['a1b', 'c2a', 'b3c', 'a2b']
 const recipesList = document.getElementById('recipesList')
 const searchBar = document.getElementById('searchWrapper')
-
 let filteredRecipes = []
 let searchString = ""
-
 
 function linearSearch(arr, elem)
 {
@@ -29,7 +25,6 @@ function linearSearch(arr, elem)
 function searchBarFiltering(value)
 {
     searchString = value.toLowerCase()
-    console.log(searchString);
   
         filteredRecipes = filteredRecipes.filter(recipe => 
         recipe.name 
@@ -48,8 +43,6 @@ function searchBarFiltering(value)
 
 searchBar.addEventListener('keyup', (e) => updateFilters(e.target.value))
 
-
-
 function generateIngredients(ingredients) 
 {
 	return ingredients.map(ingredient => 
@@ -61,9 +54,8 @@ function generateIngredients(ingredients)
 function displayRecipes(recipes)
 {
     const htmlString = recipes.map((recipe) => {
-
         return `
-        <div class="card col-4 mb-4">
+        <div class="card col-sm-12 col-md-6 col-lg-4 mb-4">
             <div class="card-img-bg"></div>
             <div class="card-body">
                 <div class="row mb-4">
@@ -91,7 +83,6 @@ function displayRecipes(recipes)
 
 function updateFilters(textValue)
 {
-
     // Always update recipes to the initial values
     filteredRecipes = recipes
     textValue.length >= 3 ? searchBarFiltering(textValue) : searchString = ""

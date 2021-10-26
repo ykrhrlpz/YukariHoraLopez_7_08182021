@@ -14,6 +14,7 @@ nav
     padding-bottom: 20px;
     gap: 10px;
 }
+
 form
 {
     position: relative;
@@ -116,10 +117,8 @@ form .search-icon
     font-family: "Font Awesome 5 Free";
     content: '\f078';
     font-weight: 900;
-
     position: absolute;
     right: 10px;
-
     transition: all .4s;
 }
 
@@ -128,7 +127,6 @@ form .search-icon
     max-height: 240px;
     opacity: 1;
     overflow-y: scroll;
-
     margin-top: 54px;
 }
 
@@ -190,7 +188,6 @@ form .search-icon
     border-radius: 8px 8px 0 0;
     z-index: 100;
     border: 8px solid #2f3640;
-
     opacity: 0;
     pointer-events: none;
     transition: all 0.4s;
@@ -207,7 +204,7 @@ form .search-icon
     pointer-events: auto;
 }
 
-/* Chips */
+/* Chips ----------------------*/
 
 .chip 
 {
@@ -232,8 +229,7 @@ form .search-icon
     background-color: #ED6454;
 }
 
-
-/* Bootstrap dropdown */
+/* Dropdown with search bar */
 .dropdown-menu.show
 {
     display: flex;
@@ -246,12 +242,8 @@ form .search-icon
     color: white;
 }
 
-/* Dropdown with search bar */
-
 .wrapper
 {
-    /* max-width: 250px; */
-    /* width: max-content; */
     margin-top: 30px;
 }
 
@@ -280,7 +272,6 @@ form .search-icon
 .search-input input::placeholder
 {
     color: #fff;
-    /* color: rgba(255, 255, 255, .5); */
 }
 
 .ingredients-search-input input
@@ -297,11 +288,6 @@ form .search-icon
 {
     background-color: #ED6454;
 }
-
-/* .search-input.active #search-input-ingredients
-{
-    color: rgba(255, 255, 255, .5);
-} */
 
 .search-input .icon 
 {
@@ -320,7 +306,6 @@ form .search-icon
 .search-input .autocom-box
 {
     padding: 0;
-    /* max-height: 280px; */
     max-height: 900px;
     overflow-y: auto;
     opacity: 0;
@@ -333,10 +318,21 @@ form .search-icon
     padding: 10px 8px;
     opacity: 1;
     pointer-events: auto;
-
- 
     width: 600px;
     max-height: 400px;
+}
+
+@media screen and (max-width: 480px) 
+{
+    .search-input.active .autocom-box
+    {
+        width: 92vw;
+    }
+
+    .search-input.active 
+    {
+        width: 92vw;
+    }
 }
 .ingredients-search-input.active .autocom-box
 {
@@ -351,12 +347,9 @@ form .search-icon
     background-color: #ED6454;
 }
 
-
 .search-input.active 
 {
-    /* background-color: #3282F7; */
     color: #fff;
-    width: 600px;
 }
 
 .autocom-box li
