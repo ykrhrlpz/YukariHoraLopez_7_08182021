@@ -16,7 +16,6 @@ utensilInputBox.onkeyup = (e) =>
     if (userUtensilsData)
     {
         utensilSearchWrapper.classList.add("active") // show autocomplete box
-
     }
     else
     {
@@ -59,28 +58,28 @@ utensilInputBox.onfocus = (e) =>
 }
 
 //  Updates Utensils suggestion and excludes anything already present in the chips.
-const updateUtensilSuggestions = () => utensilsArray = userUtensilsData 
-? 
-    utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)).filter((data) => data.startsWith(userUtensilsData))
-: 
-    utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)) 
+const updateUtensilSuggestions = () => 
+{
+    if(userUtensilsData)
+        utensilsArray = utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)).filter((data) => data.startsWith(userUtensilsData))
+    else 
+        utensilsArray = utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)) 
+}
 
 // Displays the list of suggestions LI elements.
 function showUtensilsSuggestions()
 {
     updateUtensilSuggestions()
-    userUtensilsData 
-    ?
-        utensilSuggBox.innerHTML = !utensilsArray.length 
-        ? 
-            '<li>' + utensilInputBox.value + '</li>' 
-        : 
-            utensilsArray.map(data =>
+    if(userUtensilsData)
+        if(!utensilsArray.length)
+            utensilSuggBox.innerHTML = '<li>' + utensilInputBox.value + '</li>'
+        else
+            utensilSuggBox.innerHTML = utensilsArray.map(data =>
             `
                 <li id="utensil" class="col-xs-12 col-md-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
-    :
+    else
     utensilSuggBox.innerHTML = utensilsArray.map(data =>
     `
         <li id="utensil" class="col-xs-12 col-md-4" onclick="launchUtensilChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>

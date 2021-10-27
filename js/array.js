@@ -3,11 +3,11 @@ let ingredientsGroup = []
 function createIngredientsArray()
 {
     // for each loop to get array of ingredient
-    recipes.forEach(recipe => 
-        recipe.ingredients.forEach(item => 
-            !ingredientsGroup.includes(item.ingredient.toLowerCase())
-            &&
-                ingredientsGroup.push(item.ingredient.toLowerCase())))
+    recipes.forEach(recipe => recipe.ingredients.forEach(item => 
+    {
+        if(!ingredientsGroup.includes(item.ingredient.toLowerCase())) 
+            ingredientsGroup.push(item.ingredient.toLowerCase())
+    }))
 
     return ingredientsGroup
 }
@@ -18,16 +18,12 @@ createIngredientsArray()
 let devicesGroup = []
 function createDevicesArray()
 {
-
     recipes.forEach(recipe => 
     {
-        !devicesGroup.includes(recipe.appliance.toLowerCase())
-            &&
+        if(!devicesGroup.includes(recipe.appliance.toLowerCase()))
             devicesGroup.push(recipe.appliance.toLowerCase())
-    
-    });
-
-    return devicesGroup;
+    })
+    return devicesGroup
 }
 
 createDevicesArray()
@@ -38,9 +34,10 @@ function createUtensilsArray()
 {
      recipes.forEach(recipe => 
         recipe.ustensils.forEach(item => 
-            !utensilsGroup.includes(item.toLowerCase())
-            &&
-            utensilsGroup.push(item.toLowerCase())))
+        {
+            if(!utensilsGroup.includes(item.toLowerCase()))
+                utensilsGroup.push(item.toLowerCase())
+        }))
 
     return utensilsGroup;
 }
