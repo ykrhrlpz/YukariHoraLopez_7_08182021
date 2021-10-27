@@ -3,20 +3,38 @@ const searchBar = document.getElementById('searchWrapper')
 let filteredRecipes = []
 let searchString = ""
 
+function linearSearch(arr, elem)
+{
+    let result = false
+    let elemLength = elem.length
+    let loopLength = arr.length - elemLength
+    if (loopLength < 0)
+    {
+        return false
+    }
+    for (let i = 0; i <= loopLength; i++)
+    {
+        if (arr.slice(i, i + elemLength) === elem)
+        { 
+            result = true
+        }
+    }
+    return result
+}
+
 function searchBarFiltering(value)
 {
     searchString = value.toLowerCase()
-  
     filteredRecipes = filteredRecipes.filter(recipe => 
     {
         if(recipe.name) 
-            if(recipe.name.toLowerCase().includes(searchString))
+            if(linearSearch(recipe.name.toLowerCase(), searchString))
                 return true
         if(recipe.ingredients) 
-            if(recipe.ingredients.filter(item => item.ingredient.toLowerCase().includes(searchString)).length > 0)
+            if(recipe.ingredients.filter(item => linearSearch(item.ingredient.toLowerCase(), searchString)).length > 0)
                 return true
         if(recipe.description)
-            if(recipe.description.toLowerCase().includes(searchString))
+            if(linearSearch(recipe.description.toLowerCase(), searchString))
                 return true
     })
 }
