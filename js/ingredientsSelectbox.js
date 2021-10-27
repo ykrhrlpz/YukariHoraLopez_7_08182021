@@ -12,15 +12,10 @@ const ingredientSuggBox = ingredientSearchWrapper.querySelector(".autocom-box")
 ingredientInputBox.onkeyup = (e) =>
 {
     userIngredientsData = e.target.value.toLowerCase() // user entered data, we turn it to lower case
-
     if (userIngredientsData)
-    {
         ingredientSearchWrapper.classList.add("active") // show autocomplete box
-    }
     else
-    {
         ingredientSearchWrapper.classList.remove("active") // hide autocomplete box
-    }
 
     showIngrdientsSuggestions()
 }
@@ -59,33 +54,33 @@ ingredientInputBox.onfocus = (e) =>
 }
 
 //  Updates ingredients suggestion and excludes anything already present in the chips.
-const updateIngredientSuggestions = () => IngredientsArray = userIngredientsData 
-? 
-    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userIngredientsData))
-: 
-    ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)) 
+const updateIngredientSuggestions = () => 
+{
+    if(userIngredientsData)
+        IngredientsArray = ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userIngredientsData))
+    else
+        IngredientsArray = ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)) 
+}
 
 // Displays the list of suggestions LI elements.
 function showIngrdientsSuggestions()
 {
     updateIngredientSuggestions()
-    userIngredientsData 
-    ?
-        ingredientSuggBox.innerHTML = !IngredientsArray.length 
-        ? 
-            '<li>' + ingredientInputBox.value + '</li>' 
-        : 
-            IngredientsArray.map(data =>
+    if(userIngredientsData)
+        if(!IngredientsArray.length)
+            ingredientSuggBox.innerHTML = '<li>' + ingredientInputBox.value + '</li>' 
+        else
+            ingredientSuggBox.innerHTML = IngredientsArray.map(data =>
             `
                 <li id="ingredient" class="col-xs-12 col-md-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
-    :
-    ingredientSuggBox.innerHTML = IngredientsArray.map(data =>
-    `
-        <li id="ingredient" class="col-xs-12 col-md-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
-    `
-    ).join('')
+    else
+        ingredientSuggBox.innerHTML = IngredientsArray.map(data =>
+        `
+            <li id="ingredient" class="col-xs-12 col-md-4" onclick="launchIngredientChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        `
+        ).join('')
 }
 
 // Renders the chip section by looping over the list of currentlySelectedIngredients.

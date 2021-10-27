@@ -61,33 +61,33 @@ deviceInputBox.onfocus = (e) =>
 }
 
 //  Updates devices suggestion and excludes anything already present in the chips.
-const updateDeviceSuggestions = () => devicesArray = userDevicesData 
-? 
-    devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)).filter((data) => data.startsWith(userDevicesData))
-: 
-    devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)) 
+const updateDeviceSuggestions = () => 
+{
+    if(userDevicesData)
+        devicesArray = devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)).filter((data) => data.startsWith(userDevicesData))
+    else 
+        devicesArray = devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)) 
+}
 
 // Displays the list of suggestions LI elements.
 function showDevicesSuggestions()
 {
     updateDeviceSuggestions()
-    userDevicesData 
-    ?
-        deviceSuggBox.innerHTML = !devicesArray.length 
-        ? 
-            '<li>' + deviceInputBox.value + '</li>' 
-        : 
-            devicesArray.map(data =>
+    if(userDevicesData)
+        if(!devicesArray.length)
+            deviceSuggBox.innerHTML = '<li>' + deviceInputBox.value + '</li>'
+        else
+            deviceSuggBox.innerHTML = devicesArray.map(data =>
             `
                 <li id="device" class="col-xs-12 col-md-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
             `
             ).join('')
-    :
-    deviceSuggBox.innerHTML = devicesArray.map(data =>
-    `
-        <li id="device" class="col-xs-12 col-md-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
-    `
-    ).join('')
+    else
+        deviceSuggBox.innerHTML = devicesArray.map(data =>
+        `
+            <li id="device" class="col-xs-12 col-md-4" onclick="launchDeviceChip('${data.charAt(0).toUpperCase()}${data.slice(1)}')">${data.charAt(0).toUpperCase()}${data.slice(1)}</li>
+        `
+        ).join('')
 }
 
 // Renders the chip section by looping over the list of currentlySelectedDevices.
@@ -102,7 +102,6 @@ const renderDevicesChips = () =>
     </div>
     `).join("")
 }
-
 
 function deviceFiltering()
 {

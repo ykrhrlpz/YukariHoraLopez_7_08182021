@@ -7,19 +7,18 @@ function searchBarFiltering(value)
 {
     searchString = value.toLowerCase()
   
-        filteredRecipes = filteredRecipes.filter(recipe => 
-        recipe.name 
-        && 
-            recipe.name.toLowerCase().includes(searchString)
-        || 
-        recipe.ingredients 
-        &&
-            // returning true if it finds ingredient, if not, return false
-            recipe.ingredients.filter(item => item.ingredient.toLowerCase().includes(searchString)).length > 0
-        ||
-        recipe.description
-        &&
-            recipe.description.toLowerCase().includes(searchString)) 
+    filteredRecipes = filteredRecipes.filter(recipe => 
+    {
+        if(recipe.name) 
+            if(recipe.name.toLowerCase().includes(searchString))
+                return true
+        if(recipe.ingredients) 
+            if(recipe.ingredients.filter(item => item.ingredient.toLowerCase().includes(searchString)).length > 0)
+                return true
+        if(recipe.description)
+            if(recipe.description.toLowerCase().includes(searchString))
+                return true
+    })
 }
 
 searchBar.addEventListener('keyup', (e) => updateFilters(e.target.value))
@@ -34,8 +33,8 @@ function generateIngredients(ingredients)
 
 function displayRecipes(recipes)
 {
-    const htmlString = recipes.map((recipe) => {
-        return `
+    const htmlString = recipes.map((recipe) =>  
+        `   
         <div class="card col-sm-12 col-md-6 col-lg-4 mb-4">
             <div class="card-img-bg"></div>
             <div class="card-body">
@@ -57,8 +56,7 @@ function displayRecipes(recipes)
             </div>
         </div>
         `
-    })
-    .join('')
+    ).join('')
     recipesList.innerHTML = htmlString
 }
 
@@ -71,15 +69,10 @@ function updateFilters(textValue)
     currentlySelectedIngredients.length >= 1 && ingredientFiltering()
     currentlySelectedDevices.length >= 1 && deviceFiltering()
 
-    filteredRecipes.length >= 1
-    ?
-        filteredRecipes.length !== recipes.length 
-        ? 
-            displayRecipes(filteredRecipes)
-        :
-            displayRecipes([])
-    :
-        displayNoRecipe()
+    if(filteredRecipes.length >= 1) 
+        if(filteredRecipes.length !== recipes.length) displayRecipes(filteredRecipes)
+        else displayRecipes([])
+    else displayNoRecipe()
 }
 
 function displayNoRecipe()
