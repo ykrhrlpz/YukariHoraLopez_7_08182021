@@ -56,8 +56,10 @@ ingredientInputBox.onfocus = (e) =>
 //  Updates ingredients suggestion and excludes anything already present in the chips.
 const updateIngredientSuggestions = () => 
 {
+    // If the user type something, not showing the suggestion in the list which already added to the selected tags
     if(userIngredientsData)
         IngredientsArray = ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)).filter((data) => data.startsWith(userIngredientsData))
+    // if the user didn't type anything, show all the ingredients except for the currentlySelectedIngredients
     else
         IngredientsArray = ingredientsGroup.filter(ing => !currentlySelectedIngredients.includes(`${ing.charAt(0).toUpperCase()}${ing.slice(1)}`)) 
 }
@@ -96,6 +98,7 @@ const renderIngredientsChips = () =>
     `).join("")
 }
 
+// filter recipes based on ingredients
 function ingredientFiltering()
 {
     currentlySelectedIngredients.forEach(ingredient => 

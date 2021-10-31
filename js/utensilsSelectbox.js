@@ -60,8 +60,10 @@ utensilInputBox.onfocus = (e) =>
 //  Updates Utensils suggestion and excludes anything already present in the chips.
 const updateUtensilSuggestions = () => 
 {
+    // If the user type something, not showing the suggestion in the list which already added to the selected tags
     if(userUtensilsData)
         utensilsArray = utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)).filter((data) => data.startsWith(userUtensilsData))
+    // if the user didn't type anything, show all the utensils except for the currentlySelectedUtensils
     else 
         utensilsArray = utensilsGroup.filter(utensil => !currentlySelectedUtensils.includes(`${utensil.charAt(0).toUpperCase()}${utensil.slice(1)}`)) 
 }
@@ -100,6 +102,7 @@ const renderUtensilsChips = () =>
     `).join("")
 }
 
+// filter recipes based on utensils
 function utensilFiltering()
 {
     currentlySelectedUtensils.forEach(utensil => 

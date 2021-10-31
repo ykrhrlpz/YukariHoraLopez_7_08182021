@@ -63,8 +63,10 @@ deviceInputBox.onfocus = (e) =>
 //  Updates devices suggestion and excludes anything already present in the chips.
 const updateDeviceSuggestions = () => 
 {
+    // If the user type something, not showing the suggestion in the list which already added to the selected tags
     if(userDevicesData)
         devicesArray = devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)).filter((data) => data.startsWith(userDevicesData))
+    // if the user didn't type anything, show all the devices except for the currentlySelectedDevices
     else 
         devicesArray = devicesGroup.filter(device => !currentlySelectedDevices.includes(`${device.charAt(0).toUpperCase()}${device.slice(1)}`)) 
 }
@@ -103,6 +105,7 @@ const renderDevicesChips = () =>
     `).join("")
 }
 
+// filter recipes based on devices
 function deviceFiltering()
 {
     currentlySelectedDevices.forEach(device => 
